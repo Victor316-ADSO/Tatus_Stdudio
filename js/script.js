@@ -86,8 +86,7 @@ function scrollToSection(sectionId) {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("⏳ Solicitando artistas desde get_artists.php...");
-
+    
     fetch("./php/get_artists.php")
         .then(response => {
            
@@ -247,11 +246,11 @@ function populateArtistSelects(artists) {
 }
 
 async function initializeApp() {
-    console.log("⏳ Solicitando artistas desde get_artists.php...");
+   
     try {
         const response = await fetch('./php/get_artists.php');
         const artists = await response.json(); // <-- Define artists aquí
-        console.log("✅ Artistas recibidos:", artists);
+        
         populateArtistSelects(artists); // <-- Úsalo aquí
     } catch (error) {
         console.error("❌ Error al cargar artistas:", error);
@@ -290,8 +289,67 @@ function setupGalleryFilters() {
 // Configurar formularios
 function setupForms() {
     // Formulario de citas
-    const appointmentForm = document.getElementById('appointment-form');
-    appointmentForm.addEventListener('submit', handleAppointmentSubmit);
+    
+
+    document.addEventListener('DOMContentLoaded', function () {
+  const artistSelect = document.getElementById('artist-select');
+  const form = document.getElementById('appointment-form');
+
+  // Cargar artistas
+  fetch('./php/appointment_handler.php?loadArtists=1')
+    .then(res => res.json())
+    .then(data => {
+      console.log('Artistas cargados:', data);
+      artistSelect.innerHTML = '<option value="">Seleccionar artista</option>';
+      data.forEach(artist => {
+        const option = document.createElement('option');
+        option.value = artist.id;
+        option.textContent = artist.name;
+        artistSelect.appendChild(option);
+      });
+    })
+    .catch(err => {
+      console.error('Error al cargar artistas:', err);
+    });
+
+  // Enviar formulario
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    // Mostrar los datos enviados
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+
+    fetch('./php/appointment_handler.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log('Respuesta del servidor:', data);
+      if (data.success) {
+        alert('✅ Cita registrada exitosamente');
+        form.reset();
+      } else {
+        alert('❌ Error: ' + (data.error || 'Algo salió mal'));
+      }
+    })
+    .catch(err => {
+      console.error('Error en la solicitud:', err);
+      alert('❌ Error de red o servidor.');
+    });
+  });
+});
+
+
+
+
+
+
+
 
     // Formulario de lista de espera
     const waitingListForm = document.getElementById('waiting-list-form');
@@ -513,10 +571,6 @@ window.joinWaitingListForArtist = joinWaitingListForArtist;
 
 // Función para debug - mostrar estadísticas
 function showStats() {
-    console.log('=== ESTADÍSTICAS DEL ESTUDIO ===');
-    console.log(`Total de citas: ${appointments.length}`);
-    console.log(`Lista de espera: ${waitingList.length}`);
-    console.log(`Artistas disponibles: ${artists.length}`);
     
     // Estadísticas por artista
     const appointmentsByArtist = {};
@@ -525,7 +579,7 @@ function showStats() {
         appointmentsByArtist[artistName] = (appointmentsByArtist[artistName] || 0) + 1;
     });
     
-    console.log('Citas por artista:', appointmentsByArtist);
+    
 }
 
 // Función para exportar datos
@@ -646,8 +700,7 @@ function handleAppointmentSubmit(e) {
 
 // Simular envío de email de confirmación
 function sendConfirmationEmail(appointment) {
-    console.log('Enviando email de confirmación a:', appointment.clientEmail);
-    console.log('Detalles de la cita:', appointment);
+    
     
     // En una implementación real, aquí se haría la llamada al servidor
     // para enviar el email de confirmación
@@ -803,5 +856,3 @@ window.updateAvailableTimeSlots = updateAvailableTimeSlots;
 window.showArtistInfo = showArtistInfo;
 window.showPriceEstimate = showPriceEstimate;
 
-console.log('🎨 Ink Dreams - Sistema de gestión de estudio de tatuajes cargado exitosamente');
-console.log('💡 Usa showStats() para ver estadísticas del estudio');

@@ -1241,5 +1241,3 @@ window.closeModal = closeModal;
 window.clearFilters = clearFilters;
 
 // Inicializar cuando se carga la página
-console.log('🎨 Dashboard Ink Dreams cargado exitosamente');
-console.log('👤 Usuario de prueba: admin / admin123');

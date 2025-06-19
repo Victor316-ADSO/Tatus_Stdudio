@@ -123,88 +123,89 @@
 </div>
 
     <!-- Sistema de Citas -->
-    <section id="citas" class="appointments">
-        <div class="container">
-            <h2>Reservar Cita</h2>
-            <div class="appointment-container">
-                <form id="appointment-form" class="appointment-form">
-                    <div class="form-group">
-                        <label for="client-name">Nombre Completo:</label>
-                        <input type="text" id="client-name" name="clientName" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="client-email">Email:</label>
-                        <input type="email" id="client-email" name="clientEmail" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="client-phone">Teléfono:</label>
-                        <input type="tel" id="client-phone" name="clientPhone" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="artist-select">Artista Preferido:</label>
-                        <select id="artist-select" name="artistSelect" required>
-                            <option value="">Seleccionar artista</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="appointment-date">Fecha:</label>
-                        <input type="date" id="appointment-date" name="appointmentDate" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="appointment-time">Hora:</label>
-                        <select id="appointment-time" name="appointmentTime" required>
-                            <option value="">Seleccionar hora</option>
-                            <option value="10:00">10:00 AM</option>
-                            <option value="11:00">11:00 AM</option>
-                            <option value="12:00">12:00 PM</option>
-                            <option value="13:00">1:00 PM</option>
-                            <option value="14:00">2:00 PM</option>
-                            <option value="15:00">3:00 PM</option>
-                            <option value="16:00">4:00 PM</option>
-                            <option value="17:00">5:00 PM</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="tattoo-description">Descripción del Tatuaje:</label>
-                        <textarea id="tattoo-description" name="tattooDescription" rows="4" placeholder="Describe tu idea de tatuaje, tamaño, ubicación, etc." required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Solicitar Cita</button>
-                </form>
-                
-                <div class="appointment-info">
-                    <h3>Información de Citas</h3>
-                    <div class="info-item">
-                        <i class="fas fa-money-bill-wave"></i>
-                        <div>
-                            <h4>Depósito Requerido</h4>
-                            <p>Se requiere un depósito de $50 para asegurar tu cita.</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h4>Política de Cancelación</h4>
-                            <p>Aviso de 48 horas para cancelaciones.</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-heart-pulse"></i>
-                        <div>
-                            <h4>Preparación</h4>
-                            <p>Come antes de tu cita, mantente hidratado y evita el alcohol.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<section id="citas" class="appointments">
+  <div class="container">
+    <h2>Reservar Cita</h2>
+    <div class="appointment-container">
+      <form id="appointment-form" class="appointment-form">
+        <div class="form-group">
+          <label for="client-name">Nombre Completo:</label>
+          <input type="text" id="client-name" name="clientName" required>
         </div>
-    </section>
+
+        <div class="form-group">
+          <label for="client-email">Email:</label>
+          <input type="email" id="client-email" name="clientEmail" required>
+        </div>
+
+        <div class="form-group">
+          <label for="client-phone">Teléfono:</label>
+          <input type="tel" id="client-phone" name="clientPhone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="artist-select">Artista Preferido:</label>
+          <select id="artist-select" name="artistSelect" required>
+            <option value="">Cargando artistas...</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="appointment-date">Fecha:</label>
+          <input type="date" id="appointment-date" name="appointmentDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="appointment-time">Hora:</label>
+          <select id="appointment-time" name="appointmentTime" required>
+            <option value="">Seleccionar hora</option>
+            <option value="10:00:00">10:00 AM</option>
+            <option value="11:00:00">11:00 AM</option>
+            <option value="12:00:00">12:00 PM</option>
+            <option value="13:00:00">1:00 PM</option>
+            <option value="14:00:00">2:00 PM</option>
+            <option value="15:00:00">3:00 PM</option>
+            <option value="16:00:00">4:00 PM</option>
+            <option value="17:00:00">5:00 PM</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="tattoo-description">Descripción del Tatuaje:</label>
+          <textarea id="tattoo-description" name="tattooDescription" rows="4" placeholder="Describe tu idea de tatuaje, tamaño, ubicación, etc." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Solicitar Cita</button>
+      </form>
+
+      <div class="appointment-info">
+        <h3>Información de Citas</h3>
+        <div class="info-item">
+          <i class="fas fa-money-bill-wave"></i>
+          <div>
+            <h4>Depósito Requerido</h4>
+            <p>Se requiere un depósito de $50 para asegurar tu cita.</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-clock"></i>
+          <div>
+            <h4>Política de Cancelación</h4>
+            <p>Aviso de 48 horas para cancelaciones.</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-heart-pulse"></i>
+          <div>
+            <h4>Preparación</h4>
+            <p>Come antes de tu cita, mantente hidratado y evita el alcohol.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     <!-- Lista de Espera -->
     <section id="lista-espera" class="waiting-list">
