@@ -98,23 +98,31 @@ function handleLogin(e) {
     const formData = new FormData(e.target);
     const username = formData.get('username');
     const password = formData.get('password');
-    
-    // Validación simple (en producción usar autenticación real)
-    if (username === 'admin' && password === 'admin123') {
-        currentUser = {
-            id: 1,
-            username: 'admin',
-            name: 'Administrador',
-            role: 'admin'
-        };
-        
-        localStorage.setItem('dashboardUser', JSON.stringify(currentUser));
-        showDashboard();
-        showNotification('Bienvenido al dashboard', 'success');
-    } else {
-        showNotification('Credenciales incorrectas', 'error');
-    }
+
+    fetch('/Tatus_Stdudio/php/credenciales/login_validate.php.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            currentUser = data.user;
+            localStorage.setItem('dashboardUser', JSON.stringify(currentUser));
+            showDashboard();
+            showNotification('Bienvenido al dashboard', 'success');
+        } else {
+            showNotification(data.message || 'Error al iniciar sesión', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error en login:', error);
+        showNotification('Error del servidor. Intenta más tarde.', 'error');
+    });
 }
+
 
 function handleLogout() {
     currentUser = null;

@@ -8,41 +8,42 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <h2>INK DREAMS</h2>
-                </div>
-                <ul class="nav-menu" id="nav-menu">
-                    <li class="nav-item">
-                        <a href="#inicio" class="nav-link">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#artistas" class="nav-link">Artistas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#galeria" class="nav-link">Galería</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#citas" class="nav-link">Citas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#lista-espera" class="nav-link">Lista de Espera</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#contacto" class="nav-link">Contacto</a>
-                    </li>
-                </ul>
-                <div class="nav-toggle" id="mobile-menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
+<!-- Header -->
+<header class="header">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="img/logo.png" alt="Ink Dreams Logo" class="logo-img">
+                <h2>INK DREAMS</h2>
             </div>
-        </nav>
-    </header>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#inicio" class="nav-link">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#artistas" class="nav-link">Artistas</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#galeria" class="nav-link">Galería</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#citas" class="nav-link">Citas</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#lista-espera" class="nav-link">Lista de Espera</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contacto" class="nav-link">Contacto</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+</header>
 
     <!-- Hero Section -->
     <section id="inicio" class="hero">
@@ -442,7 +443,7 @@
     <div id="gallery-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <img id="modal-image" src="/placeholder.svg" alt="">
+            <img id="modal-image" src="./img/placeholder.svg" alt="">
             <div id="image-info"></div>
         </div>
     </div>
