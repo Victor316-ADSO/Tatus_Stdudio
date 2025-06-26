@@ -3,7 +3,7 @@
 function loadGallery() {
     console.log(`[loadGallery] Cargando galería con filtro: ${currentFilter}`);
 
-    fetch(`/Tatus_Stdudio/php/get_gallery.php?filter=${currentFilter}`)
+    fetch(`/Tatus_Studio/php/get_gallery.php?filter=${currentFilter}`)
         .then(response => {
             if (!response.ok) {
                 console.error('[loadGallery] Error en la respuesta del servidor:', response.status);

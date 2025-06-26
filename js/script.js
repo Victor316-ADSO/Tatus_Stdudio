@@ -86,6 +86,41 @@ function scrollToSection(sectionId) {
 
 
 document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("appointment-form-reserva").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const form = this;
+    const formData = new FormData(form);
+
+    console.log("⏳ Enviando formulario...");
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+
+    fetch("/Tatus_Studio/php/submit_appointment.php", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => {
+      console.log("📡 Respuesta recibida:", response);
+      if (!response.ok) {
+        throw new Error("Respuesta no OK del servidor");
+      }
+      return response.text();
+    })
+    .then(data => {
+      console.log("✅ Respuesta del servidor:", data);
+      alert("Cita enviada con éxito");
+      form.reset();
+    })
+    .catch(error => {
+      console.error("❌ Error al enviar el formulario:", error);
+      alert("Error al enviar el formulario. Revisa la consola.");
+    });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
     
     fetch("./php/get_artists.php")
         .then(response => {
@@ -291,58 +326,80 @@ function setupForms() {
     // Formulario de citas
     
 
-    document.addEventListener('DOMContentLoaded', function () {
-  const artistSelect = document.getElementById('artist-select');
+   document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('appointment-form');
+  const artistSelect = document.getElementById('artist-select');
 
   // Cargar artistas
-  fetch('./php/appointment_handler.php?loadArtists=1')
+  fetch('./php/get_artists.php')
     .then(res => res.json())
     .then(data => {
-      console.log('Artistas cargados:', data);
-      artistSelect.innerHTML = '<option value="">Seleccionar artista</option>';
+      artistSelect.innerHTML = '<option value="">Selecciona un artista</option>';
       data.forEach(artist => {
         const option = document.createElement('option');
         option.value = artist.id;
-        option.textContent = artist.name;
+        option.textContent = `${artist.first_name} ${artist.last_name}`;
         artistSelect.appendChild(option);
       });
     })
-    .catch(err => {
-      console.error('Error al cargar artistas:', err);
+    .catch(() => {
+      artistSelect.innerHTML = '<option value="">Error al cargar</option>';
     });
 
-  // Enviar formulario
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-
     const formData = new FormData(form);
 
-    // Mostrar los datos enviados
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+    const clientData = {
+      first_name: formData.get('first_name'),
+      last_name: formData.get('last_name'),
+      email: formData.get('email'),
+      phone: formData.get('phone')
+    };
 
-    fetch('./php/appointment_handler.php', {
+    // Paso 1: Crear cliente
+    fetch('./php/client_handler.php', {
       method: 'POST',
-      body: formData
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(clientData)
     })
     .then(res => res.json())
+    .then(clientRes => {
+      if (!clientRes.success) {
+        alert('❌ Error al registrar cliente: ' + clientRes.error);
+        return;
+      }
+
+      const clientId = clientRes.client_id;
+      formData.append('client_id', clientId);
+
+      // Paso 2: Enviar cita
+      return fetch('./php/appointment_handler.php', {
+        method: 'POST',
+        body: formData
+      });
+    })
+    .then(res => res?.json())
     .then(data => {
-      console.log('Respuesta del servidor:', data);
+      if (!data) return;
       if (data.success) {
-        alert('✅ Cita registrada exitosamente');
+        alert('✅ Cita registrada correctamente.');
         form.reset();
       } else {
-        alert('❌ Error: ' + (data.error || 'Algo salió mal'));
+        alert('❌ Error al registrar cita: ' + data.error);
       }
     })
     .catch(err => {
-      console.error('Error en la solicitud:', err);
-      alert('❌ Error de red o servidor.');
+      console.error(err);
+      alert('❌ Error de red o del servidor.');
     });
   });
 });
+
+
+
+
+
 
 
 
