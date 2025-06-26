@@ -396,79 +396,68 @@ function setupForms() {
   });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-    // Formulario de lista de espera
-    const waitingListForm = document.getElementById('waiting-list-form');
-    waitingListForm.addEventListener('submit', handleWaitingListSubmit);
-
-    // Formulario de contacto
-    const contactForm = document.getElementById('contact-form');
-    contactForm.addEventListener('submit', handleContactSubmit);
 }
 
-// Manejar envío de formulario de citas
-function handleAppointmentSubmit(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(e.target);
-    const appointment = {
-        id: Date.now(),
-        clientName: formData.get('clientName'),
-        clientEmail: formData.get('clientEmail'),
-        clientPhone: formData.get('clientPhone'),
-        artistSelect: formData.get('artistSelect'),
-        appointmentDate: formData.get('appointmentDate'),
-        appointmentTime: formData.get('appointmentTime'),
-        tattooDescription: formData.get('tattooDescription'),
-        status: 'pendiente',
-        createdAt: new Date().toISOString()
-    };
 
-    // Validar disponibilidad
-    if (isTimeSlotAvailable(appointment.appointmentDate, appointment.appointmentTime, appointment.artistSelect)) {
-        appointments.push(appointment);
-        localStorage.setItem('appointments', JSON.stringify(appointments));
-        
-        showNotification('¡Cita solicitada exitosamente! Te contactaremos pronto para confirmar.', 'success');
-        e.target.reset();
-    } else {
-        showNotification('Lo sentimos, ese horario ya no está disponible. Por favor selecciona otro.', 'error');
-    }
+function loadWaitingList() {
+  const artist = document.getElementById("artistFilter").value;
+  const style = document.getElementById("styleFilter").value;
+
+  const params = new URLSearchParams();
+  if (artist) params.append("artist_id", artist);
+  if (style) params.append("style", style);
+
+  fetch(`/Tatus_Studio/php/get_waiting_list.php?${params.toString()}`)
+    .then(res => res.json())
+    .then(data => {
+      // Actualizar estadísticas
+      document.getElementById("totalWaiting").textContent = data.stats.totalWaiting;
+      document.getElementById("avgWaitTime").textContent = data.stats.avgWaitTime + " días";
+      document.getElementById("nextAvailable").textContent = data.stats.nextAvailable || "N/A";
+
+      // Tabla
+      const tbody = document.getElementById("tableBody");
+      tbody.innerHTML = "";
+
+      data.appointments.forEach((appt, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${appt.artist_name}</td>
+          <td>${appt.artist_style}</td>
+          <td>${appt.duration_hours} h</td>
+          <td>${appt.tattoo_description}</td>
+          <td>${appt.estimated_date}</td>
+          <td><span class="status-badge status-${appt.status}">${appt.status.charAt(0).toUpperCase() + appt.status.slice(1)}</span></td>
+          <td>1</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    })
+    .catch(err => {
+      console.error("❌ Error al cargar lista de espera:", err);
+    });
 }
 
-// Manejar envío de formulario de lista de espera
-function handleWaitingListSubmit(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(e.target);
-    const waitingListEntry = {
-        id: Date.now(),
-        waitName: formData.get('waitName'),
-        waitEmail: formData.get('waitEmail'),
-        waitPhone: formData.get('waitPhone'),
-        waitArtist: formData.get('waitArtist'),
-        urgency: formData.get('urgency'),
-        waitDescription: formData.get('waitDescription'),
-        createdAt: new Date().toISOString()
-    };
+// Eventos de filtro
+document.getElementById("artistFilter").addEventListener("change", loadWaitingList);
+document.getElementById("styleFilter").addEventListener("change", loadWaitingList);
 
-    waitingList.push(waitingListEntry);
-    localStorage.setItem('waitingList', JSON.stringify(waitingList));
-    
-    showNotification('¡Te has unido a la lista de espera! Te contactaremos cuando se abra un espacio.', 'success');
-    e.target.reset();
-}
+// Inicial
+document.addEventListener("DOMContentLoaded", loadWaitingList);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Manejar envío de formulario de contacto
 function handleContactSubmit(e) {

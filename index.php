@@ -198,79 +198,102 @@
 
 
     <!-- Lista de Espera -->
+
     <section id="lista-espera" class="waiting-list">
         <div class="container">
-            <h2>Lista de Espera</h2>
-            <div class="waiting-list-container">
-                <div class="waiting-list-info">
-                    <h3>¿No encuentras una cita disponible?</h3>
-                    <p>Únete a nuestra lista de espera y te notificaremos cuando se abra un espacio con tu artista preferido.</p>
-                    
-                    <div class="waiting-process">
-                        <div class="process-step">
-                            <div class="step-number">1</div>
-                            <p>Completa el formulario de lista de espera</p>
+            <div class="header-section">
+                <h2>Lista de Espera Actual</h2>
+                <p class="subtitle">Consulta tu posición y los próximos disponibles</p>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalWaiting">0</div>
+                    <div class="stat-label">En Lista de Espera</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="avgWaitTime">0</div>
+                    <div class="stat-label">Días Promedio de Espera</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="nextAvailable">0</div>
+                    <div class="stat-label">Próximas Citas Disponibles</div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-container">
+                    <select id="artistFilter" class="filter-select">
+                        <option value="">Todos los artistas</option>
+                        <option value="1">Carlos Mendez</option>
+                        <option value="2">Ana Rodriguez</option>
+                        <option value="3">Miguel Torres</option>
+                        <option value="4">Sofia Herrera</option>
+                    </select>
+                    <select id="styleFilter" class="filter-select">
+                        <option value="">Todos los estilos</option>
+                        <option value="realismo">Realismo</option>
+                        <option value="tradicional">Tradicional</option>
+                        <option value="geometrico">Geométrico</option>
+                        <option value="blackwork">Blackwork</option>
+                        <option value="acuarela">Acuarela</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="waitingListTable" class="waiting-table">
+                    <thead>
+                        <tr>
+                            <th>Posición</th>
+                            <th>Artista</th>
+                            <th>Estilo</th>
+                            <th>Tamaño</th>
+                            <th>Ubicación</th>
+                            <th>Fecha Estimada</th>
+                            <th>Estado</th>
+                            <th>Sesiones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Los datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-section">
+                <div class="info-card">
+                    <h3>¿Cómo funciona la lista de espera?</h3>
+                    <ul>
+                        <li>Las posiciones se actualizan en tiempo real</li>
+                        <li>Te contactaremos cuando sea tu turno</li>
+                        <li>Tienes 48 horas para confirmar tu cita</li>
+                        <li>Los tiempos son estimados y pueden variar</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>Estados de la lista</h3>
+                    <div class="status-legend">
+                        <div class="legend-item">
+                            <span class="status-badge status-pending">Pendiente</span>
+                            <span>Esperando confirmación</span>
                         </div>
-                        <div class="process-step">
-                            <div class="step-number">2</div>
-                            <p>Te agregamos a la lista de tu artista preferido</p>
+                        <div class="legend-item">
+                            <span class="status-badge status-confirmed">Confirmado</span>
+                            <span>Cita programada</span>
                         </div>
-                        <div class="process-step">
-                            <div class="step-number">3</div>
-                            <p>Te contactamos cuando se abra un espacio</p>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">4</div>
-                            <p>Tienes 24 horas para confirmar la cita</p>
+                        <div class="legend-item">
+                            <span class="status-badge status-in_progress">En Proceso</span>
+                            <span>Tatuaje en progreso</span>
                         </div>
                     </div>
                 </div>
-                
-                <form id="waiting-list-form" class="waiting-list-form">
-                    <div class="form-group">
-                        <label for="wait-name">Nombre Completo:</label>
-                        <input type="text" id="wait-name" name="waitName" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="wait-email">Email:</label>
-                        <input type="email" id="wait-email" name="waitEmail" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="wait-phone">Teléfono:</label>
-                        <input type="tel" id="wait-phone" name="waitPhone" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="wait-artist">Artista Preferido:</label>
-                        <select id="wait-artist" name="waitArtist" required>
-                            <option value="">Seleccionar artista</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="urgency">¿Qué tan pronto necesitas tu tatuaje?</label>
-                        <select id="urgency" name="urgency" required>
-                            <option value="">Seleccionar urgencia</option>
-                            <option value="asap">Lo antes posible</option>
-                            <option value="month">Dentro de un mes</option>
-                            <option value="flexible">Soy flexible</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="wait-description">Descripción del Tatuaje:</label>
-                        <textarea id="wait-description" name="waitDescription" rows="4" placeholder="Describe tu idea de tatuaje..." required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Unirse a Lista de Espera</button>
-                </form>
             </div>
         </div>
     </section>
 
-    <!-- Testimonios -->
+
+
     <section class="testimonials">
         <div class="container">
             <h2>Lo que Dicen Nuestros Clientes</h2>

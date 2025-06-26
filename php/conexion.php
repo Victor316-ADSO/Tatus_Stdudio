@@ -13,8 +13,12 @@ $options = [
 
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
-    echo "Conexión exitosa.";
+    // No imprimir nada aquí
 } catch (\PDOException $e) {
-    throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    // Devuelve un error JSON en lugar de imprimir texto plano
+    http_response_code(500);
+    header('Content-Type: application/json');
+    echo json_encode(['error' => 'Error de conexión: ' . $e->getMessage()]);
+    exit;
 }
 ?>
