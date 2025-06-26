@@ -86,10 +86,16 @@ function scrollToSection(sectionId) {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("appointment-form-reserva").addEventListener("submit", function(e) {
+  const form = document.getElementById("appointment-form-reserva");
+
+  if (!form) {
+    console.error("❌ No se encontró el formulario con id 'appointment-form-reserva'");
+    return;
+  }
+
+  form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const form = this;
     const formData = new FormData(form);
 
     console.log("⏳ Enviando formulario...");
@@ -460,23 +466,24 @@ document.addEventListener("DOMContentLoaded", loadWaitingList);
 
 
 // Manejar envío de formulario de contacto
-function handleContactSubmit(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(e.target);
-    const contact = {
-        id: Date.now(),
-        contactName: formData.get('contactName'),
-        contactEmail: formData.get('contactEmail'),
-        contactSubject: formData.get('contactSubject'),
-        contactMessage: formData.get('contactMessage'),
-        createdAt: new Date().toISOString()
-    };
 
-    // Simular envío
-    showNotification('¡Mensaje enviado exitosamente! Te responderemos pronto.', 'success');
-    e.target.reset();
-}
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('contact-name').value.trim();
+    const email = document.getElementById('contact-email').value.trim();
+    const subject = document.getElementById('contact-subject').value.trim();
+    const message = document.getElementById('contact-message').value.trim();
+
+    const phone = "573233576923"; // 👉 Reemplaza con el número real en formato internacional SIN espacios
+
+    const texto = `Hola, soy ${name}.\nCorreo: ${email}\nAsunto: ${subject}\n\n${message}`;
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(texto)}`;
+
+    window.open(url, '_blank'); // Abre en nueva pestaña
+});
+
+
 
 // Verificar disponibilidad de horario
 function isTimeSlotAvailable(date, time, artistId) {

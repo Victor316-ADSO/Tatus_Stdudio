@@ -10,6 +10,7 @@ $artist_id = intval($_POST['artist_id']);
 $appointment_date = $_POST['appointment_date'];
 $appointment_time = $_POST['appointment_time'];
 $tattoo_description = trim($_POST['tattoo_description']);
+$tattoo_style = trim($_POST['tattoo_style']); // Nuevo campo
 
 // Campos ocultos con valores por defecto
 $status = $_POST['status'] ?? 'pending';
@@ -32,10 +33,10 @@ try {
         $client_id = $pdo->lastInsertId();
     }
 
-    // Paso 2: Insertar la cita
+    // Paso 2: Insertar la cita (ahora incluye tattoo_style)
     $insert_appointment = $pdo->prepare("INSERT INTO appointments 
-        (client_id, artist_id, appointment_date, appointment_time, duration_hours, status, tattoo_description, deposit_amount, deposit_paid)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        (client_id, artist_id, appointment_date, appointment_time, duration_hours, status, tattoo_description, tattoo_style, deposit_amount, deposit_paid)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     );
 
     $insert_appointment->execute([
@@ -46,6 +47,7 @@ try {
         $duration_hours,
         $status,
         $tattoo_description,
+        $tattoo_style,
         $deposit_amount,
         $deposit_paid
     ]);
@@ -55,4 +57,3 @@ try {
     http_response_code(500);
     echo "❌ Error en la base de datos: " . $e->getMessage();
 }
-?>

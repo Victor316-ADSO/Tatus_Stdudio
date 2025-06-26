@@ -157,6 +157,19 @@
         </select>
       </div>
 
+      <!-- Selección de estilo -->
+      <div class="form-group">
+        <label for="style-select">Estilo de Tatuaje:</label>
+        <select id="style-select" name="style" required>
+          <option value="">Seleccionar estilo</option>
+          <option value="realismo">Realismo</option>
+          <option value="tradicional">Tradicional</option>
+          <option value="geométrico">Geométrico</option>
+          <option value="acuarela">Acuarela</option>
+          
+        </select>
+      </div>
+
       <!-- Fecha y hora -->
       <div class="form-group">
         <label for="appointment-date">Fecha:</label>
@@ -178,7 +191,7 @@
         </select>
       </div>
 
-      <!-- Información del tatuaje -->
+      <!-- Descripción del tatuaje -->
       <div class="form-group">
         <label for="tattoo-description">Descripción del Tatuaje:</label>
         <textarea id="tattoo-description" name="tattoo_description" rows="4" required></textarea>
@@ -194,6 +207,7 @@
     </form>
   </div>
 </section>
+
 
 
 
@@ -337,74 +351,74 @@
 
     <!-- Contacto -->
     <section id="contacto" class="contact">
-        <div class="container">
-            <h2>Contacto</h2>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Información del Estudio</h3>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Dirección</h4>
-                            <p>Calle del Arte 123<br>Ciudad Tinta, CT 12345</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Teléfono</h4>
-                            <p>(555) 123-4567</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p>info@inkdreams.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h4>Horarios</h4>
-                            <p>Lun - Sáb: 11:00 AM - 8:00 PM<br>Dom: Cerrado</p>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+    <div class="container">
+        <h2>Contacto</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Información del Estudio</h3>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Dirección</h4>
+                        <p>Calle del Arte 123<br>Ciudad Tinta, CT 12345</p>
                     </div>
                 </div>
-                
-                <form id="contact-form" class="contact-form">
-                    <div class="form-group">
-                        <label for="contact-name">Nombre:</label>
-                        <input type="text" id="contact-name" name="contactName" required>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4>Teléfono</h4>
+                        <p>(555) 123-4567</p>
                     </div>
-                    <div class="form-group">
-                        <label for="contact-email">Email:</label>
-                        <input type="email" id="contact-email" name="contactEmail" required>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p>info@inkdreams.com</p>
                     </div>
-                    <div class="form-group">
-                        <label for="contact-subject">Asunto:</label>
-                        <select id="contact-subject" name="contactSubject" required>
-                            <option value="">Seleccionar asunto</option>
-                            <option value="general">Consulta General</option>
-                            <option value="appointment">Pregunta sobre Cita</option>
-                            <option value="pricing">Información de Precios</option>
-                            <option value="aftercare">Cuidados Post-Tatuaje</option>
-                        </select>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4>Horarios</h4>
+                        <p>Lun - Sáb: 11:00 AM - 8:00 PM<br>Dom: Cerrado</p>
                     </div>
-                    <div class="form-group">
-                        <label for="contact-message">Mensaje:</label>
-                        <textarea id="contact-message" name="contactMessage" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
-                </form>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
             </div>
+
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <label for="contact-name">Nombre:</label>
+                    <input type="text" id="contact-name" name="contactName" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Email:</label>
+                    <input type="email" id="contact-email" name="contactEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-subject">Asunto:</label>
+                    <select id="contact-subject" name="contactSubject" required>
+                        <option value="">Seleccionar asunto</option>
+                        <option value="general">Consulta General</option>
+                        <option value="appointment">Pregunta sobre Cita</option>
+                        <option value="pricing">Información de Precios</option>
+                        <option value="aftercare">Cuidados Post-Tatuaje</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="contact-message">Mensaje:</label>
+                    <textarea id="contact-message" name="contactMessage" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+            </form>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer class="footer">
